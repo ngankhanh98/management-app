@@ -1,12 +1,57 @@
-﻿<Window x:Class="management_app.MainWindow"
+﻿<Fluent:RibbonWindow x:Class="management_app.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:management_app"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--Ribbon-->
+        <Fluent:Ribbon Grid.Row="0" Background="Azure">
+            <!--Backstage-->
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage>
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="Print" />
+                        <Fluent:Button Header="Blue" />
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+
+            <!--Product-->
+            <Fluent:RibbonTabItem Header="Category">
+                <Fluent:RibbonGroupBox>
+                    <Fluent:Button Header="Add"
+                                LargeIcon="Images/Add.png"/>
+                    <Fluent:Button Header="Delete" 
+                                LargeIcon="Images/Delete.png"/>
+                    <Fluent:Button Header="Save" 
+                                LargeIcon="Images/Save.png"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="Products">
+                <Fluent:RibbonGroupBox Header="Group">
+                    <Fluent:Button Header="Add"
+                                LargeIcon="Images/Add.png"/>
+                    <Fluent:Button Header="Delete" 
+                                LargeIcon="Images/Delete.png"/>
+                    <Fluent:Button Header="Save" 
+                                LargeIcon="Images/Save.png"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
         
+        <!--Board-->
+        <Fluent:Ribbon Grid.Row="1" Background="Yellow">
+
+        </Fluent:Ribbon>
     </Grid>
-</Window>
+</Fluent:RibbonWindow>
