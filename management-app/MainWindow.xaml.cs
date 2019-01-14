@@ -22,8 +22,11 @@ namespace management_app
     {
         private managementdbEntities db;
         private CAdd addform;
-        private string newCate;
+        private PAdd paddform;
+        private string newCate, newPro;
         private CATEGORY selectedCate = new CATEGORY();
+        private PRODUCT selectedPro = new PRODUCT();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,16 +63,25 @@ namespace management_app
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // Category List
             db = new managementdbEntities();
             db.Configuration.ProxyCreationEnabled = false;
             db.CATEGORies.ToList();
 
-            var filteredData = db.CATEGORies.Local
+            var filteredCate = db.CATEGORies.Local
                              .Where(x => x.CSTATUS == 1);
-            lvCategory.ItemsSource = filteredData;
+            lvCategory.ItemsSource = filteredCate;
+
+            // Product List
+            db.Configuration.ProxyCreationEnabled = false;
+            db.PRODUCTs.ToList();
+
+            var filteredProduct = db.PRODUCTs.Local
+                             .Where(x => x.PSTATUS == 1);
+            lvProduct.ItemsSource = filteredProduct;
         }
 
-        // Select item
+        // Select category
         private void getSelectedItem(object sender, MouseButtonEventArgs e)
         {
             selectedCate = (CATEGORY)lvCategory.SelectedItems[0];
@@ -84,5 +96,39 @@ namespace management_app
             this.Page_Loaded(sender, e);
         }
 
+        // Select product
+        private void getSelectedItemProduct(object sender, MouseButtonEventArgs e)
+        {
+            selectedPro = (PRODUCT)lvProduct.SelectedItems[0];
+        }
+
+        private void Button_Click_AddPro(object sender, RoutedEventArgs e)
+        {
+            paddform = new PAdd();
+            paddform.DatabaseChanged += paddform_DatabaseChanged;
+            paddform.ShowDialog();
+
+            db = new managementdbEntities();
+            MessageBox.Show(newPro.ToString());
+            //PRODUCT newProduct = db.PRODUCTs.Where(x => x.PNAME == newPro).Select(x => x).FirstOrDefault();
+            //if (newProduct == null)
+            //{
+            //    newProduct.PNAME = newCate;
+            //    newProduct.CSTATUS = 1;
+            //    db.PRODUCTs.Add(newProduct);
+            //}
+            //else
+            //{
+            //    newCategory.CSTATUS = 1;
+            //}
+            //db.SaveChanges();
+
+            //this.Page_Loaded(sender, e);
+        }
+        void paddform_DatabaseChanged(string newDatabaseName)
+        {
+            // This will get called everytime you call "DatabaseChanged" on child
+            newPro = newDatabaseName;
+        }
     }
 }

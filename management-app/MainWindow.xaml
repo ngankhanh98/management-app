@@ -25,7 +25,7 @@
             </Fluent:Ribbon.Menu>
 
             <!--Category-->
-            <Fluent:RibbonTabItem Header="Category">
+            <Fluent:RibbonTabItem Header="Category" Name="RCategory">
                 <Fluent:RibbonGroupBox>
                     <Fluent:Button Header="Add"
                                 LargeIcon="Images/Add.png" Click="Button_Click_Add"/>
@@ -35,10 +35,10 @@
             </Fluent:RibbonTabItem>
 
             <!--Product-->
-            <Fluent:RibbonTabItem Header="Products">
+            <Fluent:RibbonTabItem Header="Products" Name="RProduct">
                 <Fluent:RibbonGroupBox>
                     <Fluent:Button Header="Add"
-                                LargeIcon="Images/Add.png"/>
+                                LargeIcon="Images/Add.png" Click="Button_Click_AddPro"/>
                     <Fluent:Button Header="Delete" 
                                 LargeIcon="Images/Delete.png"/>
                     <Fluent:Button Header="Save" 
@@ -49,10 +49,19 @@
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
-        <ListView ItemsSource="{Binding CNAME}" Name="lvCategory" Background="{x:Null}" BorderBrush="{x:Null}" Width="749" MouseDoubleClick="getSelectedItem">
+        <ListView ItemsSource="{Binding CNAME}" Name="lvCategory" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedItem" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=RCategory}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="CATEGORY" DisplayMemberBinding="{Binding CNAME}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView ItemsSource="{Binding BARCODE}" Name="lvProduct" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedItemProduct" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=RProduct}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="BARCODE" DisplayMemberBinding="{Binding BARCODE}" />
+                    <GridViewColumn Header="PRODUCT" DisplayMemberBinding="{Binding PNAME}" />
                 </GridView>
             </ListView.View>
         </ListView>
