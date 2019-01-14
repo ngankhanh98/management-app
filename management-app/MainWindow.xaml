@@ -28,13 +28,9 @@
             <Fluent:RibbonTabItem Header="Category">
                 <Fluent:RibbonGroupBox>
                     <Fluent:Button Header="Add"
-                                LargeIcon="Images/Add.png" Click="Button_Click"/>
+                                LargeIcon="Images/Add.png" Click="Button_Click_Add"/>
                     <Fluent:Button Header="Delete" 
-                                LargeIcon="Images/Delete.png"/>
-                    <Fluent:Button Header="Save" 
-                                LargeIcon="Images/Save.png"/>
-                    <Fluent:Button Header="Edit" 
-                                LargeIcon="Images/New.png"/>
+                                LargeIcon="Images/Delete.png" Click="Button_Click_Delete"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 

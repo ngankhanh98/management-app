@@ -23,25 +23,32 @@ namespace management_app
         private managementdbEntities db;
         private CAdd addform;
         private string newCate;
+        private CATEGORY selectedCate = new CATEGORY();
         public MainWindow()
         {
             InitializeComponent();
         }
 
         // Add new category
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             addform = new CAdd();
             addform.DatabaseChanged += addform_DatabaseChanged;
             addform.ShowDialog();
 
             db = new managementdbEntities();
-            CATEGORY newCategory = new CATEGORY();
-
-            newCategory.CNAME = newCate;
-            newCategory.CSTATUS = 1;
-            db.CATEGORies.Add(newCategory);
-            db.SaveChangesAsync();
+            CATEGORY newCategory = db.CATEGORies.Where(x => x.CNAME == newCate).Select(x => x).FirstOrDefault();
+            if (newCategory == null)
+            {
+                newCategory.CNAME = newCate;
+                newCategory.CSTATUS = 1;
+                db.CATEGORies.Add(newCategory);
+            }
+            else
+            {
+                newCategory.CSTATUS = 1;
+            }
+            db.SaveChanges();
 
             this.Page_Loaded(sender, e);
         }
@@ -62,11 +69,19 @@ namespace management_app
             lvCategory.ItemsSource = filteredData;
         }
 
+        // Select item
         private void getSelectedItem(object sender, MouseButtonEventArgs e)
         {
-            CATEGORY selectedCate = (CATEGORY)lvCategory.SelectedItems[0];
+            selectedCate = (CATEGORY)lvCategory.SelectedItems[0];
+        }
+        private void Button_Click_Delete(object sender, RoutedEventArgs e)
+        {
             db = new managementdbEntities();
+            CATEGORY delEntry = db.CATEGORies.Where(x => x.CNAME == selectedCate.CNAME).Select(x => x).FirstOrDefault();
+            delEntry.CSTATUS = 0;
+            db.SaveChanges();
 
+            this.Page_Loaded(sender, e);
         }
 
     }

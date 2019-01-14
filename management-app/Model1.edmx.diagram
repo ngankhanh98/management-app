@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e9c2d1c7d432497cab63cd54d599db49" Name="Diagram1">
-        <EntityTypeShape EntityType="managementdbModel.CATEGORY" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+      <Diagram DiagramId="a249a4c8bd884796a9b55e8a133562da" Name="Diagram1">
         <EntityTypeShape EntityType="managementdbModel.PRODUCT" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="managementdbModel.FK__PRODUCT__CATE__398D8EEE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="managementdbModel.CATEGORY" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="managementdbModel.FK__PRODUCT__CATE__398D8EEE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
