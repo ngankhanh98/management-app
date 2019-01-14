@@ -4,20 +4,117 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HisoStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="HisoStoreModelStoreContainer" />
+      <Schema Namespace="managementdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CNAME" />
+          </Key>
+          <Property Name="CNAME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CSTATUS" Type="int" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="PNAME" Type="varchar" MaxLength="100" />
+          <Property Name="PRICE" Type="int" />
+          <Property Name="BARCODE" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="QTY" Type="int" />
+          <Property Name="PSTATUS" Type="int" />
+          <Property Name="CATE" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__PRODUCT__CATE__398D8EEE">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="CNAME" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="CATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="managementdbModelStoreContainer">
+          <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PRODUCT__CATE__398D8EEE" Association="Self.FK__PRODUCT__CATE__398D8EEE">
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="HisoStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="HisoStoreEntities1" annotation:LazyLoadingEnabled="true" />
+      <Schema Namespace="managementdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CNAME" />
+          </Key>
+          <Property Name="CNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CSTATUS" Type="Int32" />
+          <NavigationProperty Name="PRODUCTs" Relationship="Self.FK__PRODUCT__CATE__398D8EEE" FromRole="CATEGORY" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="PNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE" Type="Int32" />
+          <Property Name="BARCODE" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QTY" Type="Int32" />
+          <Property Name="PSTATUS" Type="Int32" />
+          <Property Name="CATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CATEGORY" Relationship="Self.FK__PRODUCT__CATE__398D8EEE" FromRole="PRODUCT" ToRole="CATEGORY" />
+        </EntityType>
+        <Association Name="FK__PRODUCT__CATE__398D8EEE">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="CNAME" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="CATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="managementdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CATEGORies" EntityType="Self.CATEGORY" />
+          <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
+          <AssociationSet Name="FK__PRODUCT__CATE__398D8EEE" Association="Self.FK__PRODUCT__CATE__398D8EEE">
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HisoStoreModelStoreContainer" CdmEntityContainer="HisoStoreEntities1" />
+        <EntityContainerMapping StorageEntityContainer="managementdbModelStoreContainer" CdmEntityContainer="managementdbEntities">
+          <EntitySetMapping Name="CATEGORies">
+            <EntityTypeMapping TypeName="managementdbModel.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORY">
+                <ScalarProperty Name="CNAME" ColumnName="CNAME" />
+                <ScalarProperty Name="CSTATUS" ColumnName="CSTATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="managementdbModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="PNAME" ColumnName="PNAME" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="PSTATUS" ColumnName="PSTATUS" />
+                <ScalarProperty Name="CATE" ColumnName="CATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -34,6 +131,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

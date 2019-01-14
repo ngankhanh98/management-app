@@ -13,10 +13,10 @@ namespace management_app
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HisoStoreEntities1 : DbContext
+    public partial class managementdbEntities : DbContext
     {
-        public HisoStoreEntities1()
-            : base("name=HisoStoreEntities1")
+        public managementdbEntities()
+            : base("name=managementdbEntities")
         {
         }
     
@@ -25,5 +25,7 @@ namespace management_app
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CATEGORY> CATEGORies { get; set; }
+        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
     }
 }

@@ -6,7 +6,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:management_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="MainWindow" Height="450" Width="800" Loaded="Page_Loaded">
     <DockPanel LastChildFill="True">
         <Fluent:Ribbon DockPanel.Dock="Top" Name="ribbon">
             <!--Backstage-->
@@ -48,17 +53,12 @@
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
-        <!--Board-->
-        <TabControl Name="tabs" SelectedIndex="{Binding ElementName=ribbon, Path=SelectedTabIndex}" BorderThickness="0">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="TabItem"></ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-        </TabControl>
+        <ListView ItemsSource="{Binding CNAME}" Name="lvCategory" Background="{x:Null}" BorderBrush="{x:Null}" Width="749" MouseDoubleClick="getSelectedItem">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="CATEGORY" DisplayMemberBinding="{Binding CNAME}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </DockPanel>
 </Fluent:RibbonWindow>
