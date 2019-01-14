@@ -7,14 +7,8 @@
         xmlns:local="clr-namespace:management_app"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <!--Ribbon-->
-        <Fluent:Ribbon Grid.Row="0" Background="Azure">
+    <DockPanel LastChildFill="True">
+        <Fluent:Ribbon DockPanel.Dock="Top" Name="ribbon">
             <!--Backstage-->
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>
@@ -25,8 +19,22 @@
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
 
-            <!--Product-->
+            <!--Category-->
             <Fluent:RibbonTabItem Header="Category">
+                <Fluent:RibbonGroupBox>
+                    <Fluent:Button Header="Add"
+                                LargeIcon="Images/Add.png" Click="Button_Click"/>
+                    <Fluent:Button Header="Delete" 
+                                LargeIcon="Images/Delete.png"/>
+                    <Fluent:Button Header="Save" 
+                                LargeIcon="Images/Save.png"/>
+                    <Fluent:Button Header="Edit" 
+                                LargeIcon="Images/New.png"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <!--Product-->
+            <Fluent:RibbonTabItem Header="Products">
                 <Fluent:RibbonGroupBox>
                     <Fluent:Button Header="Add"
                                 LargeIcon="Images/Add.png"/>
@@ -34,24 +42,23 @@
                                 LargeIcon="Images/Delete.png"/>
                     <Fluent:Button Header="Save" 
                                 LargeIcon="Images/Save.png"/>
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-
-            <Fluent:RibbonTabItem Header="Products">
-                <Fluent:RibbonGroupBox Header="Group">
-                    <Fluent:Button Header="Add"
-                                LargeIcon="Images/Add.png"/>
-                    <Fluent:Button Header="Delete" 
-                                LargeIcon="Images/Delete.png"/>
-                    <Fluent:Button Header="Save" 
-                                LargeIcon="Images/Save.png"/>
+                    <Fluent:Button Header="Edit" 
+                                LargeIcon="Images/New.png"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
-        
+
         <!--Board-->
-        <Fluent:Ribbon Grid.Row="1" Background="Yellow">
-
-        </Fluent:Ribbon>
-    </Grid>
+        <TabControl Name="tabs" SelectedIndex="{Binding ElementName=ribbon, Path=SelectedTabIndex}" BorderThickness="0">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem"></ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
+    </DockPanel>
 </Fluent:RibbonWindow>
