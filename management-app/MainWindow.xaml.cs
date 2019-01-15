@@ -23,6 +23,7 @@ namespace management_app
         private managementdbEntities db;
         private CAdd addform;
         private PAdd paddform;
+        private PUpdate pupdform;
         private string newCate, newPro, updPro;
         private CATEGORY selectedCate = new CATEGORY();
         private PRODUCT selectedPro = new PRODUCT();
@@ -109,6 +110,10 @@ namespace management_app
             paddform.ShowDialog();
 
             db = new managementdbEntities();
+
+            if (newPro == null)
+                return;
+
             MessageBox.Show(newPro.ToString());
             var result = newPro.ToString();
             var tokens = newPro.Split(new string[] { "," },
@@ -140,12 +145,47 @@ namespace management_app
 
         private void Button_Click_UpdPro(object sender, RoutedEventArgs e)
         {
-            PUpdate pupdform = new PUpdate(selectedPro);
+            pupdform = new PUpdate(selectedPro);
+            pupdform.DatabaseChanged += pupdform_DatabaseChanged;
             pupdform.ShowDialog();
 
-            pupdform.DatabaseChanged += pupdform_DatabaseChanged;
+            var result = updPro.ToString();
+            MessageBox.Show(result);
+            var tokens = updPro.Split(new string[] { "," },
+                    StringSplitOptions.RemoveEmptyEntries)
+                    .Select(token => token.Trim())
+                    .ToArray();
 
-            MessageBox.Show(updPro);
+
+            PRODUCT updProduct = db.PRODUCTs.Where(x => x.BARCODE == selectedPro.BARCODE).Select(x => x).FirstOrDefault();
+            
+            // update = add + delete
+            if(updProduct!=null)
+            {
+                // Not edit Barcode
+                if (updProduct.BARCODE != tokens[0])
+                {
+                    PRODUCT newProduct = new PRODUCT();
+                    newProduct.BARCODE = tokens[0];
+                    newProduct.PNAME = tokens[1];
+                    newProduct.PRICE = int.Parse(tokens[2]);
+                    newProduct.QTY = int.Parse(tokens[3]);
+                    newProduct.CATE = tokens[4];
+                    newProduct.PSTATUS = 1;
+                    updProduct.PSTATUS = 0;
+                    db.PRODUCTs.Add(newProduct);
+                }
+                else
+                {
+                    updProduct.PNAME = tokens[1];
+                    updProduct.PRICE = int.Parse(tokens[2]);
+                    updProduct.QTY = int.Parse(tokens[3]);
+                    updProduct.CATE = tokens[4];
+                    updProduct.PSTATUS = 1;
+                }
+            }
+            db.SaveChanges();
+            this.Page_Loaded(sender, e);
         }
 
         void paddform_DatabaseChanged(string newDatabaseName)
