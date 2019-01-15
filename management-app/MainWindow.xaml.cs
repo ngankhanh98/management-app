@@ -24,7 +24,8 @@ namespace management_app
         private CAdd addform;
         private PAdd paddform;
         private PUpdate pupdform;
-        private string newCate, newPro, updPro;
+        private OAdd oaddform;
+        private string newCate, newPro, updPro, newOrd;
         private CATEGORY selectedCate = new CATEGORY();
         private PRODUCT selectedPro = new PRODUCT();
 
@@ -80,6 +81,11 @@ namespace management_app
             var filteredProduct = db.PRODUCTs.Local
                              .Where(x => x.PSTATUS == 1);
             lvProduct.ItemsSource = filteredProduct;
+
+            // Order list
+            db.Configuration.ProxyCreationEnabled = false;
+
+            lvOrder.ItemsSource = db.ORDERs.ToList();
         }
 
         // Select category
@@ -198,6 +204,55 @@ namespace management_app
             this.Page_Loaded(sender, e);
         }
 
+        private void Button_Click_AddOrder(object sender, RoutedEventArgs e)
+        {
+            oaddform = new OAdd();
+            oaddform.DatabaseChanged += oadddform_DatabaseChanged;
+            oaddform.ShowDialog();
+
+            var result = newOrd.ToString();
+            var tokens = newOrd.Split(new string[] { "," },
+                    StringSplitOptions.RemoveEmptyEntries)
+                    .Select(token => token.Trim())
+                    .ToArray();
+            // BARCODE, QUANTITY, DATE, TOTAL, COUPON
+            db = new managementdbEntities();
+
+            // add to transaction data
+            ORDER newOrder = new ORDER();
+            newOrder.BARCODE = tokens[0];
+            newOrder.QTY = int.Parse(tokens[1]);
+            newOrder.DATE = DateTime.Parse(tokens[2]);
+            newOrder.TOTAL = int.Parse(tokens[3]);
+            db.ORDERs.Add(newOrder);
+
+            // modify master data
+            PRODUCT updProduct = db.PRODUCTs.Where(x => x.BARCODE == newOrder.BARCODE).Select(x => x).SingleOrDefault();
+            if (updProduct != null)
+                updProduct.QTY = updProduct.QTY - 1;
+            db.SaveChanges();
+
+            // modify coupon date
+            string couponCode = tokens[4].ToString();
+            COUPON updCoupon = db.COUPONs.Where(x => x.CODE == couponCode).Select(x => x).SingleOrDefault();
+            if (updCoupon != null)
+                updCoupon.AVAILABLE = updCoupon.AVAILABLE - 1;
+            db.SaveChanges();
+
+            db.SaveChanges();
+            this.Page_Loaded(sender, e);
+        }
+
+        private void Button_Click_Stat(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void getSelectedOrder(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
         void paddform_DatabaseChanged(string newDatabaseName)
         {
             // This will get called everytime you call "DatabaseChanged" on child
@@ -208,6 +263,12 @@ namespace management_app
         {
             // This will get called everytime you call "DatabaseChanged" on child
             updPro = newDatabaseName;
+        }
+
+        void oadddform_DatabaseChanged(string newDatabaseName)
+        {
+            // This will get called everytime you call "DatabaseChanged" on child
+            newOrd = newDatabaseName;
         }
     }
 }

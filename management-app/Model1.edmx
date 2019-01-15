@@ -25,7 +25,7 @@
             <PropertyRef Name="ORDER_ID" />
             <PropertyRef Name="BARCODE" />
           </Key>
-          <Property Name="ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="ORDER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BARCODE" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="QTY" Type="int" />
           <Property Name="DATE" Type="date" />
@@ -144,7 +144,7 @@
             <PropertyRef Name="ORDER_ID" />
             <PropertyRef Name="BARCODE" />
           </Key>
-          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BARCODE" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="QTY" Type="Int32" />
           <Property Name="DATE" Type="DateTime" Precision="0" />
