@@ -41,6 +41,9 @@ namespace management_app
             addform.DatabaseChanged += addform_DatabaseChanged;
             addform.ShowDialog();
 
+            if (newCate == null)
+                return;
+
             db = new managementdbEntities();
             CATEGORY newCategory = db.CATEGORies.Where(x => x.CNAME == newCate).Select(x => x).FirstOrDefault();
             if (newCategory == null)
@@ -55,8 +58,8 @@ namespace management_app
                 newCategory.CSTATUS = 1;
             }
             db.SaveChanges();
-
             this.Page_Loaded(sender, e);
+            newCate = null;
         }
         void addform_DatabaseChanged(string newDatabaseName)
         {
@@ -146,15 +149,19 @@ namespace management_app
                 newProduct.PSTATUS = 1;
             }
             db.SaveChanges();
-
             this.Page_Loaded(sender, e);
+            newPro = null;
         }
 
         private void Button_Click_UpdPro(object sender, RoutedEventArgs e)
         {
+            if (selectedPro.BARCODE == null)
+                return;
+
             pupdform = new PUpdate(selectedPro);
             pupdform.DatabaseChanged += pupdform_DatabaseChanged;
             pupdform.ShowDialog();
+            
 
             var result = updPro.ToString();
             //MessageBox.Show(result);
@@ -162,7 +169,6 @@ namespace management_app
                     StringSplitOptions.RemoveEmptyEntries)
                     .Select(token => token.Trim())
                     .ToArray();
-
 
             PRODUCT updProduct = db.PRODUCTs.Where(x => x.BARCODE == selectedPro.BARCODE).Select(x => x).FirstOrDefault();
             
@@ -198,9 +204,14 @@ namespace management_app
         private void Button_Click_DelPro(object sender, RoutedEventArgs e)
         {
             db = new managementdbEntities();
+            if (selectedPro.BARCODE == null)
+                return;
+
             PRODUCT delPro = db.PRODUCTs.Where(x => x.BARCODE == selectedPro.BARCODE).Select(x => x).SingleOrDefault();
+
             if (delPro != null)
                 delPro.PSTATUS = 0;
+            
             db.SaveChanges();
             this.Page_Loaded(sender, e);
         }

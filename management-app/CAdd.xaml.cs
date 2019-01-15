@@ -29,11 +29,15 @@ namespace management_app
 
         public void BtnNewCategory_Click(object sender, RoutedEventArgs e)
         {
-            if (this.DatabaseChanged != null)
+            if (txtNewCate.Text == "")
+                lblNewCateError.Content = "Please enter a category";
+
+            if (this.DatabaseChanged != null && txtNewCate.Text!="")
             {
+                lblNewCateError.Content = "";
                 this.DatabaseChanged(txtNewCate.Text);
+                this.Close();
             }
-            this.Close();
         }
 
     }

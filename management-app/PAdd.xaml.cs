@@ -32,12 +32,19 @@ namespace management_app
 
         public void BtnNewPro_Click(object sender, RoutedEventArgs e)
         {
-            if (this.DatabaseChanged != null)
+
+            if (!(txtBarcode.Text != "" && txtPName.Text != "" && txtPrice.Text != "" && txtQty.Text != ""))
+                lblNewProError.Content = "Please fill in all the required fields.";
+            else
             {
-                CATEGORY cate = (CATEGORY)cbCatagory.SelectedItem;
-                this.DatabaseChanged(txtBarcode.Text + "," + txtPName.Text + "," + txtPrice.Text + "," + txtQty.Text + "," + cate.CNAME);
+                if (this.DatabaseChanged != null)
+                {
+                    lblNewProError.Content = "";
+                    CATEGORY cate = (CATEGORY)cbCatagory.SelectedItem;
+                    this.DatabaseChanged(txtBarcode.Text + "," + txtPName.Text + "," + txtPrice.Text + "," + txtQty.Text + "," + cate.CNAME);
+                    this.Close();
+                }
             }
-            this.Close();
         }
 
     }

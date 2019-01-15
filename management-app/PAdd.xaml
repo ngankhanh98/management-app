@@ -17,7 +17,7 @@
             <Label x:Name="lblBarcode" Content="Barcode:" Margin="0,10,0,0"/>
             <TextBox x:Name="txtBarcode" TextWrapping="Wrap" AcceptsReturn="True" Margin="5,0,5,0" />
         </StackPanel>
-        
+
         <StackPanel>
             <Label x:Name="lblName" Content="Product name:" Margin="0,10,0,0" />
             <TextBox x:Name="txtPName" TextWrapping="Wrap" AcceptsReturn="True" Margin="5,0,5,0" />
@@ -49,6 +49,8 @@
                 </ComboBox>
             </StackPanel>
         </StackPanel>
-    <Button x:Name="btnAddPro" Content="OK" Click="BtnNewPro_Click" Margin="0,20,5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="lblNewProError" Content="" Margin="0,10,0,0" HorizontalContentAlignment="Center" Foreground="Red"/>
+        <Button x:Name="btnAddPro" Content="OK" Click="BtnNewPro_Click" Margin="0,25,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="135"/>
+        
     </StackPanel>
 </Window>
