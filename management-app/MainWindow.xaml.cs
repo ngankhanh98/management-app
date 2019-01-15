@@ -23,7 +23,7 @@ namespace management_app
         private managementdbEntities db;
         private CAdd addform;
         private PAdd paddform;
-        private string newCate, newPro;
+        private string newCate, newPro, updPro;
         private CATEGORY selectedCate = new CATEGORY();
         private PRODUCT selectedPro = new PRODUCT();
 
@@ -137,10 +137,27 @@ namespace management_app
 
             this.Page_Loaded(sender, e);
         }
+
+        private void Button_Click_UpdPro(object sender, RoutedEventArgs e)
+        {
+            PUpdate pupdform = new PUpdate(selectedPro);
+            pupdform.ShowDialog();
+
+            pupdform.DatabaseChanged += pupdform_DatabaseChanged;
+
+            MessageBox.Show(updPro);
+        }
+
         void paddform_DatabaseChanged(string newDatabaseName)
         {
             // This will get called everytime you call "DatabaseChanged" on child
             newPro = newDatabaseName;
+        }
+
+        void pupdform_DatabaseChanged(string newDatabaseName)
+        {
+            // This will get called everytime you call "DatabaseChanged" on child
+            updPro = newDatabaseName;
         }
     }
 }

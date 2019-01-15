@@ -44,7 +44,7 @@
                     <Fluent:Button Header="Save" 
                                 LargeIcon="Images/Save.png"/>
                     <Fluent:Button Header="Edit" 
-                                LargeIcon="Images/New.png"/>
+                                LargeIcon="Images/New.png" Click="Button_Click_UpdPro"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
