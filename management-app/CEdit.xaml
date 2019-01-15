@@ -1,0 +1,20 @@
+﻿<Window x:Class="management_app.CEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:management_app"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Edit Category" Height="250" Width="450">
+    <Grid>
+        <Grid>
+            <Button Name="btnNewCategory" Content="OK" HorizontalAlignment="Center" Margin="0,138,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" Click="BtnNewCategory_Click"/>
+            <TextBox Name="txtNewCate" HorizontalAlignment="Center" Height="23" Margin="0,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" AcceptsReturn="True"/>
+        </Grid>
+    </Grid>
+</Window>
