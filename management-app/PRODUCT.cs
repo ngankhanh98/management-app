@@ -14,6 +14,12 @@ namespace management_app
     
     public partial class PRODUCT
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PRODUCT()
+        {
+            this.ORDERs = new HashSet<ORDER>();
+        }
+    
         public string PNAME { get; set; }
         public Nullable<int> PRICE { get; set; }
         public string BARCODE { get; set; }
@@ -22,5 +28,7 @@ namespace management_app
         public string CATE { get; set; }
     
         public virtual CATEGORY CATEGORY { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDER> ORDERs { get; set; }
     }
 }
