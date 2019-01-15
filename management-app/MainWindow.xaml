@@ -40,9 +40,8 @@
                     <Fluent:Button Header="Add"
                                 LargeIcon="Images/Add.png" Click="Button_Click_AddPro"/>
                     <Fluent:Button Header="Delete" 
-                                LargeIcon="Images/Delete.png"/>
-                    <Fluent:Button Header="Save" 
-                                LargeIcon="Images/Save.png"/>
+                                LargeIcon="Images/Delete.png" Click="Button_Click_DelPro"/>
+                    
                     <Fluent:Button Header="Edit" 
                                 LargeIcon="Images/New.png" Click="Button_Click_UpdPro"/>
                 </Fluent:RibbonGroupBox>

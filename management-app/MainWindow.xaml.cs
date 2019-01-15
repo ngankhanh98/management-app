@@ -188,6 +188,16 @@ namespace management_app
             this.Page_Loaded(sender, e);
         }
 
+        private void Button_Click_DelPro(object sender, RoutedEventArgs e)
+        {
+            db = new managementdbEntities();
+            PRODUCT delPro = db.PRODUCTs.Where(x => x.BARCODE == selectedPro.BARCODE).Select(x => x).SingleOrDefault();
+            if (delPro != null)
+                delPro.PSTATUS = 0;
+            db.SaveChanges();
+            this.Page_Loaded(sender, e);
+        }
+
         void paddform_DatabaseChanged(string newDatabaseName)
         {
             // This will get called everytime you call "DatabaseChanged" on child
