@@ -27,7 +27,7 @@ namespace management_app
         {
             InitializeComponent();
             db = new managementdbEntities();
-            cbCatagory.ItemsSource = db.CATEGORies.ToList();
+            cbCatagory.ItemsSource = db.CATEGORies.Where(x => x.CSTATUS == 1).ToList();
         }
 
         public void BtnNewPro_Click(object sender, RoutedEventArgs e)

@@ -57,21 +57,34 @@ namespace management_app
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-
             pro = (PRODUCT)cbProduct.SelectedItem;
-            
-            if(this.DatabaseChanged!=null)
+
+            lblError.Content = "Please fill in all the required fields.";
+
+            // check valid form
+            if (txtName.Text != "" && txtAddr.Text != "" && txtPhone.Text != "" && txtQty.Text != "" && pro != null && (rdOption1.IsChecked != false || rdOption2.IsChecked != false))
             {
-                
-                this.DatabaseChanged(pro.BARCODE + "," + txtQty.Text + "," + datePicker.SelectedDate.ToString() + "," + lblTotal.Content + "," + validCoupon.CODE.ToString());
+                lblError.Content = "";
+
+                if (this.DatabaseChanged != null)
+                {
+                    string coupon_code = (validCoupon == null) ? "#" : validCoupon.CODE.ToString();
+                    this.DatabaseChanged(pro.BARCODE + "," + txtQty.Text + "," + datePicker.SelectedDate.ToString() + "," + lblTotal.Content + "," + coupon_code);
+                }
+                this.Close();
             }
-            this.Close();
         }
 
         private void TxtQty_TextChanged(object sender, TextChangedEventArgs e)
         {
-            quatity = int.Parse(txtQty.Text);
-            if (pro != null)
+            if (txtQty.Text != "")
+                quatity = int.Parse(txtQty.Text);
+
+            if (quatity > pro.QTY)
+                lblQtyError.Content = "Only " + pro.QTY + " item(s)";
+            else
+                lblQtyError.Content ="";
+            if (pro != null && quatity != 0)
                 total = (int)pro.PRICE * quatity;
             lblTotal.Content = total.ToString();
         }
@@ -83,6 +96,5 @@ namespace management_app
                 total = (int)pro.PRICE * quatity;
             lblTotal.Content = total.ToString();
         }
-
     }
 }

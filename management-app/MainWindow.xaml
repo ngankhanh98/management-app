@@ -11,7 +11,7 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="MainWindow" Height="450" Width="800" Loaded="Page_Loaded">
+        Title="Management App" Height="450" Width="800" Loaded="Page_Loaded">
     <DockPanel LastChildFill="True">
         <Fluent:Ribbon DockPanel.Dock="Top" Name="ribbon">
             <!--Backstage-->
@@ -52,7 +52,7 @@
                 <Fluent:RibbonGroupBox>
                     <Fluent:Button Header="Add"
                                 LargeIcon="Images/Add.png" Click="Button_Click_AddOrder"/>
-                    <Fluent:Button Header="Delete" 
+                    <Fluent:Button Header="Statistics" 
                                 LargeIcon="Images/Statistics.png" Click="Button_Click_Stat"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>

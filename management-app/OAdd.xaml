@@ -14,14 +14,14 @@
     <Grid>
         <Label Content="Customer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,25,0,0" FontSize="15" FontWeight="Bold"/>
         <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,56,0,0"/>
-        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Margin="49,91,0,0" AcceptsReturn="True"/>
+        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Margin="49,91,0,0" AcceptsReturn="True" VerticalContentAlignment="Center"/>
         <Label Content="Address:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,133,0,0"/>
-        <TextBox Name="txtAddr" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Margin="49,162,0,0" AcceptsReturn="True"/>
+        <TextBox Name="txtAddr" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Margin="49,162,0,0" AcceptsReturn="True" VerticalContentAlignment="Center"/>
         <Label Content="Phone:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,210,0,0"/>
-        <TextBox Name="txtPhone" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Margin="49,242,0,0" AcceptsReturn="True"/>
+        <TextBox Name="txtPhone" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Margin="49,242,0,0" AcceptsReturn="True" VerticalContentAlignment="Center"/>
         <Label Content="Billing" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,283,0,0" FontSize="15" FontWeight="Bold"/>
-        <RadioButton Content="COD" GroupName="rgBilling" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,367,0,0"/>
-        <RadioButton Content="Wire Transfer" GroupName="rgBilling" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,327,0,0"/>
+        <RadioButton x:Name="rdOption2" Content="COD" GroupName="rgBilling" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,367,0,0"/>
+        <RadioButton x:Name="rdOption1" Content="Wire Transfer" GroupName="rgBilling" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,327,0,0"/>
         <Label Content="Order Summary" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="510,20,127,0" FontSize="17" FontWeight="Bold" Width="155"/>
         <StackPanel>
             <ComboBox x:Name="cbProduct" Margin="381,86,56,423" SelectionChanged="CbProduct_SelectionChanged">
@@ -44,7 +44,8 @@
         <Label x:Name="lblTotal" Content="" VerticalAlignment="Center" Margin="0,354,75,123" Width="265" Height="60" FontSize="35" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
         <Button Content="SUBMIT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="355" RenderTransformOrigin="6.253,13.312" Margin="381,470,0,0" Height="39" Click="Button_Click"/>
         <Label x:Name="lblCouponError" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="4.9,5.846" Margin="381,274,0,0" Width="355" Foreground="Red"/>
-        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,470,0,0" Width="280" Height="39"/>
+        <Label x:Name="lblError" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,470,0,0" Width="280" Height="39" Foreground="Red" VerticalContentAlignment="Center"/>
+        <Label Name="lblQtyError" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="448,200,0,0" RenderTransformOrigin="2.492,0.641" Width="82" Height="25" Foreground="Red" HorizontalContentAlignment="Right"/>
 
     </Grid>
 </Window>

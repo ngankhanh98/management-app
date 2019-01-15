@@ -45,6 +45,7 @@ namespace management_app
             CATEGORY newCategory = db.CATEGORies.Where(x => x.CNAME == newCate).Select(x => x).FirstOrDefault();
             if (newCategory == null)
             {
+                newCategory = new CATEGORY();
                 newCategory.CNAME = newCate;
                 newCategory.CSTATUS = 1;
                 db.CATEGORies.Add(newCategory);
@@ -120,7 +121,7 @@ namespace management_app
             if (newPro == null)
                 return;
 
-            MessageBox.Show(newPro.ToString());
+            //MessageBox.Show(newPro.ToString());
             var result = newPro.ToString();
             var tokens = newPro.Split(new string[] { "," },
                     StringSplitOptions.RemoveEmptyEntries)
@@ -156,7 +157,7 @@ namespace management_app
             pupdform.ShowDialog();
 
             var result = updPro.ToString();
-            MessageBox.Show(result);
+            //MessageBox.Show(result);
             var tokens = updPro.Split(new string[] { "," },
                     StringSplitOptions.RemoveEmptyEntries)
                     .Select(token => token.Trim())
@@ -209,6 +210,9 @@ namespace management_app
             oaddform = new OAdd();
             oaddform.DatabaseChanged += oadddform_DatabaseChanged;
             oaddform.ShowDialog();
+
+            if (newOrd == null)
+                return;
 
             var result = newOrd.ToString();
             var tokens = newOrd.Split(new string[] { "," },
