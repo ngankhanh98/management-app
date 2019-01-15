@@ -7,22 +7,22 @@
         mc:Ignorable="d"
         Title="PAdd" Height="450" Width="800">
     <StackPanel>
-        <Label Name="lblBarcode">Barcode:</Label>
-        <TextBox Name="txtBarcode" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"></TextBox>
-        <Label Name="lblName">Product name:</Label>
-        <TextBox Name="txtPName" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"></TextBox>
-        <Label Name="lblPrice">Price:</Label>
-        <TextBox Name="txtPrice" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"></TextBox>
-        <Label Name="lblQty">Quantity:</Label>
-        <TextBox Name="txtQty" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"></TextBox>
-        <Label Name="lblCate">Category</Label>
-        <ComboBox Name="cbCatagory">
+        <Label x:Name="lblBarcode" Content="Barcode:"/>
+        <TextBox x:Name="txtBarcode" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"/>
+        <Label x:Name="lblName" Content="Product name:"/>
+        <TextBox x:Name="txtPName" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"/>
+        <Label x:Name="lblPrice" Content="Price:"/>
+        <TextBox x:Name="txtPrice" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"/>
+        <Label x:Name="lblQty" Content="Quantity:"/>
+        <TextBox x:Name="txtQty" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True"/>
+        <Label x:Name="lblCate" Content="Category"/>
+        <ComboBox x:Name="cbCatagory">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding CNAME}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Name="btnAddPro" Content="OK" Click="BtnNewPro_Click"/>
+        <Button x:Name="btnAddPro" Content="OK" Click="BtnNewPro_Click"/>
     </StackPanel>
 </Window>

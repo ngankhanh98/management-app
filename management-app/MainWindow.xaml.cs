@@ -110,20 +110,32 @@ namespace management_app
 
             db = new managementdbEntities();
             MessageBox.Show(newPro.ToString());
-            //PRODUCT newProduct = db.PRODUCTs.Where(x => x.PNAME == newPro).Select(x => x).FirstOrDefault();
-            //if (newProduct == null)
-            //{
-            //    newProduct.PNAME = newCate;
-            //    newProduct.CSTATUS = 1;
-            //    db.PRODUCTs.Add(newProduct);
-            //}
-            //else
-            //{
-            //    newCategory.CSTATUS = 1;
-            //}
-            //db.SaveChanges();
+            var result = newPro.ToString();
+            var tokens = newPro.Split(new string[] { "," },
+                    StringSplitOptions.RemoveEmptyEntries)
+                    .Select(token => token.Trim())
+                    .ToArray();
 
-            //this.Page_Loaded(sender, e);
+            string barcode = tokens[0].ToString();
+            PRODUCT newProduct = db.PRODUCTs.Where(x => x.BARCODE == barcode).Select(x => x).FirstOrDefault();
+            if (newProduct == null)
+            {
+                newProduct = new PRODUCT();
+                newProduct.BARCODE = tokens[0];
+                newProduct.PNAME = tokens[1];
+                newProduct.PRICE = int.Parse(tokens[2]);
+                newProduct.QTY = int.Parse(tokens[3]);
+                newProduct.CATE = tokens[4];
+                newProduct.PSTATUS = 1;
+                db.PRODUCTs.Add(newProduct);
+            }
+            else
+            {
+                newProduct.PSTATUS = 1;
+            }
+            db.SaveChanges();
+
+            this.Page_Loaded(sender, e);
         }
         void paddform_DatabaseChanged(string newDatabaseName)
         {
