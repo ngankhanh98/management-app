@@ -1,0 +1,54 @@
+﻿<Window x:Class="management_app.PAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:management_app"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="New Product" Height="450" Width="660">
+    <StackPanel Margin="30" Width="600">
+
+        <StackPanel>
+            <Label x:Name="lblBarcode" Content="Barcode:" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtBarcode" TextWrapping="Wrap" AcceptsReturn="True" Margin="5,0,5,0" />
+        </StackPanel>
+        
+        <StackPanel>
+            <Label x:Name="lblName" Content="Product name:" Margin="0,10,0,0" />
+            <TextBox x:Name="txtPName" TextWrapping="Wrap" AcceptsReturn="True" Margin="5,0,5,0" />
+        </StackPanel>
+
+
+        <StackPanel Orientation="Horizontal" Height="100" Width="600">
+            <StackPanel Width="350">
+                <Label x:Name="lblPrice" Content="Price:" Margin="0,10,288,0" Width="350"/>
+                <TextBox Name="txtPrice" TextWrapping="Wrap" AcceptsReturn="True" Margin="5,0,5,0"/>
+            </StackPanel>
+            <StackPanel Width="200" Margin="50,0,0,0">
+                <Label x:Name="lblQty" Content="Quantity:" Margin="0,10,0,0"/>
+                <TextBox x:Name="txtQty" TextWrapping="Wrap" Text="Hello" AcceptsReturn="True" Margin="5,0,5,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="100">
+                <Label x:Name="lblCate" Content="Category"/>
+            </StackPanel>
+            <StackPanel Width="250">
+                <ComboBox x:Name="cbCatagory">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding CNAME}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+    <Button x:Name="btnAddPro" Content="OK" Click="BtnNewPro_Click" Margin="0,20,5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </StackPanel>
+</Window>
