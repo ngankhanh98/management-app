@@ -19,10 +19,12 @@ namespace management_app
     /// </summary>
     public partial class PUpdate : Window
     {
+
         public event DatabaseChangeHandler DatabaseChanged;
         public delegate void DatabaseChangeHandler(string newDatabaseName);
         private managementdbEntities db;
         private PRODUCT selectProduct;
+
         public PUpdate(PRODUCT selProduct)
         {
             InitializeComponent();
@@ -38,6 +40,7 @@ namespace management_app
 
         public void BtnUpdPro_Click(object sender, RoutedEventArgs e)
         {
+
             if (this.DatabaseChanged != null)
             {
                 CATEGORY cate = (CATEGORY)cbCatagory.SelectedItem;
