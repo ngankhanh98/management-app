@@ -86,7 +86,7 @@
             </ListView.View>
         </ListView>
 
-        <ListView DockPanel.Dock="Top" ItemsSource="{Binding ORDER_ID}" Name="lvOrder" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedOrder" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=Order}">
+        <ListView DockPanel.Dock="Top" ItemsSource="{Binding ORDER_ID}" Name="lvOrder" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=Order}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ORDER ID" DisplayMemberBinding="{Binding ORDER_ID}" />

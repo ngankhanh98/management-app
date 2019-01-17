@@ -113,11 +113,42 @@ namespace management_app
         private void Button_Click_Delete(object sender, RoutedEventArgs e)
         {
             db = new managementdbEntities();
-            CATEGORY delEntry = db.CATEGORies.Where(x => x.CNAME == selectedCate.CNAME).Select(x => x).FirstOrDefault();
-            delEntry.CSTATUS = 0;
-            db.SaveChanges();
+            if (selectedCate == null)
+                return;
 
-            this.Page_Loaded(sender, e);
+            if (selectedCate.CNAME == null)
+                return;
+
+           CATEGORY delEntry = db.CATEGORies.Where(x => x.CNAME == selectedCate.CNAME).Select(x => x).FirstOrDefault();
+
+            bool productOfCate = db.PRODUCTs.Where(x => x.CATE == selectedCate.CNAME).Any();
+
+            if(productOfCate)
+            {
+                string message = selectedCate.CNAME + " has already contained product(s). Do you still want to delete this category? ";
+                string caption = "Delete Category";
+                var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    delEntry.CSTATUS = 0;
+                    db.SaveChanges();
+                    MessageBox.Show("Deleted product");
+                    this.Page_Loaded(sender, e);
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                delEntry.CSTATUS = 0;
+                db.SaveChanges();
+                MessageBox.Show("Deleted product");
+                this.Page_Loaded(sender, e);
+            }
+
+            selectedCate = null;
         }
 
         // Select product
@@ -178,7 +209,7 @@ namespace management_app
             pupdform.DatabaseChanged += pupdform_DatabaseChanged;
             pupdform.ShowDialog();
 
-            if (updPro == "")
+            if (updPro == "" || updPro == null)
                 return;
 
             var result = updPro.ToString();
@@ -223,16 +254,32 @@ namespace management_app
         private void Button_Click_DelPro(object sender, RoutedEventArgs e)
         {
             db = new managementdbEntities();
+            if (selectedPro == null)
+                return;
+
             if (selectedPro.BARCODE == null)
                 return;
 
             PRODUCT delPro = db.PRODUCTs.Where(x => x.BARCODE == selectedPro.BARCODE).Select(x => x).SingleOrDefault();
 
-            if (delPro != null)
+            string message = "Do you surely want to delete this category? ";
+            string caption = "Delete Product";
+            var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
                 delPro.PSTATUS = 0;
-            
+                db.SaveChanges();
+                MessageBox.Show("Deleted category");
+                this.Page_Loaded(sender, e);
+            }
+            else
+            {
+            }
+
             db.SaveChanges();
             this.Page_Loaded(sender, e);
+            selectedPro = null;
         }
 
         private void Button_Click_AddOrder(object sender, RoutedEventArgs e)
@@ -281,11 +328,6 @@ namespace management_app
         {
             statsform = new Stats();
             statsform.ShowDialog();
-        }
-
-        private void getSelectedOrder(object sender, MouseButtonEventArgs e)
-        {
-
         }
 
         private void Button_Click_Filter(object sender, RoutedEventArgs e)
