@@ -4,9 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:management_app"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="Chart" Height="450" Width="800">
-    <Grid>
+
+    <Grid Margin="30">
+        <!--Column Chart-->
+        <lvc:CartesianChart Name="columnChart" Visibility="Hidden" Series="{Binding SeriesCollection}" LegendLocation="Left">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Labels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Name="Y" Title="Sold Items"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+
+        <!--<lvc:PieChart Name="pieChart" Visibility="Hidden" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}"/>-->
+        
+            <DockPanel LastChildFill="True">
+            <Grid Name="gvpieChart" DockPanel.Dock="Left" Width="250">
+                <lvc:PieChart Name="pieChart" Visibility="Hidden" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}"/>
+            </Grid>
+            <Grid Name="gvlineChart">
+                
+            </Grid>
+            </DockPanel>
+            
         
     </Grid>
 </Window>
