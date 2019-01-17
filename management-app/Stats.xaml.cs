@@ -145,6 +145,7 @@ namespace management_app
                     }
                     else
                     {
+                        GetIncomeInPeriod_Report(productList, orderList);
                         SaleType_Report(productList, orderList);
                     }
                     selectReport = true;
@@ -164,6 +165,7 @@ namespace management_app
                     }
                     else
                     {
+                        GetIncomeInPeriod_Report(productList, orderList);
                         SaleType_Report(productList, orderList);
                     }
                     selectReport = true;
@@ -297,9 +299,24 @@ namespace management_app
             lvSaleTotal.Visibility = Visibility.Visible;
         }
 
+        void GetIncomeInPeriod_Report(List<PRODUCT> productList, List<ORDER> orderList)
+        {
+            salesInPeriod.Clear();
+            var query = from order in orderList
+                        group order by order.DATE.Value.Month into g
+                        select new
+                        {
+                            Item = g.First().DATE.Value.Month.ToString(),
+                            SaleQty = (int)g.Sum(x => x.TOTAL)
+                        };
+            foreach(var item in query.ToList())
+            {
+                salesInPeriod.Add(new Data() { title = item.Item, value = item.SaleQty });
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(orderList.Count().ToString());
             if (!selectReport)
             {
                 lblChartError.Content = "Please select values to generate chart(s)";
@@ -309,7 +326,6 @@ namespace management_app
 
             Chart chart = new Chart(resultQry, salesInPeriod, typedt, typetime);
             chart.ShowDialog();
-
         }
     }
 }

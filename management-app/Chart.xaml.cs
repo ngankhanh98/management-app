@@ -27,7 +27,7 @@ namespace management_app
         // typedt = SALE, typetime = DAY, use pie chart,
         // typedt = SALE, typetime = MONTH or YEAR or PERIOD, use pie chart and line chart
 
-        public Chart(List<Data> resultQry, List<Data> data2, int typedt, int typetime)
+        public Chart(List<Data> resultQry, List<Data> salesInPeriod, int typedt, int typetime)
         {
             InitializeComponent();
             int[] values = resultQry.Select(x => x.value).ToArray();
@@ -51,20 +51,29 @@ namespace management_app
             }
 
 
-            if (typedt == (int)typeOfData.PRODUCT)
-                columnChart.Visibility = Visibility.Visible;
 
+            if (typedt == (int)typeOfData.PRODUCT)
+            {
+                columnChart.Visibility = Visibility.Visible;
+                DataContext = this;
+            }
             if (typedt == (int)typeOfData.SALE)
             {
-                if (typetime == (int)typeOfTime.DAY)
+                if (typetime == (int)typeOfTime.DAY || typetime == (int)typeOfTime.MONTH)
                 {
                     gvpieChart.Width = this.Width;
-                    pieChart.Visibility = Visibility.Visible;
+                    gvpieChart.Visibility = Visibility.Visible;
+                    DataContext = this;
+
                 }
                 else
                 {
-                    pieChart.Visibility = Visibility.Visible;
-
+                    int[] line_values = salesInPeriod.Select(x => x.value).ToArray();
+                    LLabels = salesInPeriod.Select(x => x.title).ToArray();
+                    LSeriesCollection = new SeriesCollection { new LineSeries { Title="Total(VND)",Values = new ChartValues<int>(line_values) } };
+                    gvpieChart.Visibility = Visibility.Visible;
+                    gvlineChart.Visibility = Visibility.Visible;
+                    DataContext = this;
                 }
             }
 
@@ -73,12 +82,14 @@ namespace management_app
             if (values.Max() < 100)
                 Y.Separator.Step = 1;
 
-            DataContext = this;
         }
 
         public SeriesCollection SeriesCollection { get; set; }
         public SeriesCollection PSeriesCollection { get; set; }
+        public SeriesCollection LSeriesCollection { get; set; }
+
         public string[] Labels { get; set; }
+        public string[] LLabels { get; set; }
         public Func<ChartPoint, string> PointLabel { get; set; }
 
     }

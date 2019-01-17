@@ -258,17 +258,17 @@ namespace management_app
             db.ORDERs.Add(newOrder);
 
             // modify master data
-            PRODUCT updProduct = db.PRODUCTs.Where(x => x.BARCODE == newOrder.BARCODE).Select(x => x).SingleOrDefault();
+           PRODUCT updProduct = db.PRODUCTs.Where(x => x.BARCODE == newOrder.BARCODE).Select(x => x).SingleOrDefault();
             if (updProduct != null)
-                updProduct.QTY = updProduct.QTY - 1;
-            db.SaveChanges();
+                updProduct.QTY = updProduct.QTY - newOrder.QTY;
+            //db.SaveChanges();
 
             // modify coupon date
             string couponCode = tokens[4].ToString();
             COUPON updCoupon = db.COUPONs.Where(x => x.CODE == couponCode).Select(x => x).SingleOrDefault();
             if (updCoupon != null)
                 updCoupon.AVAILABLE = updCoupon.AVAILABLE - 1;
-            db.SaveChanges();
+            //db.SaveChanges();
 
             db.SaveChanges();
             this.Page_Loaded(sender, e);
