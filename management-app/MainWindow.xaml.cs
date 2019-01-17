@@ -98,8 +98,11 @@ namespace management_app
 
             // Order list
             db.Configuration.ProxyCreationEnabled = false;
-
             lvOrder.ItemsSource = db.ORDERs.ToList();
+
+            // Category in combobox
+            cbCatagory.ItemsSource = db.CATEGORies.Where(x => x.CSTATUS == 1).ToList();
+
         }
 
         // Select category
@@ -283,6 +286,24 @@ namespace management_app
         private void getSelectedOrder(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void Button_Click_Filter(object sender, RoutedEventArgs e)
+        {
+            if (cbCatagory.SelectedItem != null)
+            {
+                CATEGORY filterCate = (CATEGORY)cbCatagory.SelectedItem;
+
+                var filteredProduct = db.PRODUCTs.Local
+                                 .Where(x => x.PSTATUS == 1 && x.CATE == filterCate.CNAME); // pstatus = 1
+
+                lvProduct.ItemsSource = filteredProduct.ToList();
+            }
+        }
+
+        private void Button_Click_ClearSearch(object sender, RoutedEventArgs e)
+        {
+            this.Page_Loaded(sender, e);
         }
 
         void paddform_DatabaseChanged(string newDatabaseName)

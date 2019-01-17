@@ -44,6 +44,17 @@
                     <Fluent:Button Header="Detail" 
                                 LargeIcon="Images/New.png" Click="Button_Click_UpdPro"/>
                 </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox>
+                    <ComboBox x:Name="cbCatagory" Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding CNAME}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Fluent:Button Header="Search" LargeIcon="Images/Filter.png" Click="Button_Click_Filter"/>
+                    <Fluent:Button Header="Clear" LargeIcon="Images/ClearSearch.png" Click="Button_Click_ClearSearch"/>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
 
