@@ -25,9 +25,11 @@ namespace management_app
         private PAdd paddform;
         private PUpdate pupdform;
         private OAdd oaddform;
+        private Stats statsform;
         private string newCate, newPro, updPro, newOrd;
         private CATEGORY selectedCate = new CATEGORY();
         private PRODUCT selectedPro = new PRODUCT();
+        
 
         public MainWindow()
         {
@@ -76,15 +78,23 @@ namespace management_app
 
             var filteredCate = db.CATEGORies.Local
                              .Where(x => x.CSTATUS == 1);
-            lvCategory.ItemsSource = filteredCate;
+            List<CATEGORY> cATEGORies = filteredCate.ToList();
+            lvCategory.ItemsSource = cATEGORies;
 
-            // Product List
+            // Product List = status == 1 && cstatus == 1
             db.Configuration.ProxyCreationEnabled = false;
             db.PRODUCTs.ToList();
 
             var filteredProduct = db.PRODUCTs.Local
-                             .Where(x => x.PSTATUS == 1);
-            lvProduct.ItemsSource = filteredProduct;
+                             .Where(x => x.PSTATUS == 1); // pstatus = 1
+            PRODUCT newProduct = new PRODUCT();
+            List<PRODUCT> pRODUCTs = filteredProduct.ToList();
+            filteredProduct = from product in pRODUCTs
+                              join category in cATEGORies
+                              on product.CATE equals category.CNAME
+                              select product;
+
+            lvProduct.ItemsSource = filteredProduct.ToList() ;
 
             // Order list
             db.Configuration.ProxyCreationEnabled = false;
@@ -155,13 +165,18 @@ namespace management_app
 
         private void Button_Click_UpdPro(object sender, RoutedEventArgs e)
         {
+            if (selectedPro == null)
+                return;
+            
             if (selectedPro.BARCODE == null)
                 return;
 
             pupdform = new PUpdate(selectedPro);
             pupdform.DatabaseChanged += pupdform_DatabaseChanged;
             pupdform.ShowDialog();
-            
+
+            if (updPro == "")
+                return;
 
             var result = updPro.ToString();
             //MessageBox.Show(result);
@@ -199,6 +214,7 @@ namespace management_app
             }
             db.SaveChanges();
             this.Page_Loaded(sender, e);
+            selectedPro = null;
         }
 
         private void Button_Click_DelPro(object sender, RoutedEventArgs e)
@@ -260,7 +276,8 @@ namespace management_app
 
         private void Button_Click_Stat(object sender, RoutedEventArgs e)
         {
-
+            statsform = new Stats();
+            statsform.ShowDialog();
         }
 
         private void getSelectedOrder(object sender, MouseButtonEventArgs e)

@@ -41,8 +41,7 @@
                                 LargeIcon="Images/Add.png" Click="Button_Click_AddPro"/>
                     <Fluent:Button Header="Delete" 
                                 LargeIcon="Images/Delete.png" Click="Button_Click_DelPro"/>
-                    
-                    <Fluent:Button Header="Edit" 
+                    <Fluent:Button Header="Detail" 
                                 LargeIcon="Images/New.png" Click="Button_Click_UpdPro"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
