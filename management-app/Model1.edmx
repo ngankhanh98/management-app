@@ -12,6 +12,25 @@
           <Property Name="CNAME" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CSTATUS" Type="int" />
         </EntityType>
+        <EntityType Name="COUPON">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="VALUE" Type="int" />
+          <Property Name="AVAILABLE" Type="int" />
+        </EntityType>
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="ORDER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BARCODE" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="QTY" Type="int" />
+          <Property Name="DATE" Type="date" />
+          <Property Name="TOTAL" Type="int" />
+        </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
             <PropertyRef Name="BARCODE" />
@@ -35,12 +54,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ORDER_PRODUCT">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="BARCODE" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="BARCODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="managementdbModelStoreContainer">
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COUPON" EntityType="Self.COUPON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDER" EntityType="Self.ORDER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__PRODUCT__CATE__398D8EEE" Association="Self.FK__PRODUCT__CATE__398D8EEE">
             <End Role="CATEGORY" EntitySet="CATEGORY" />
             <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORDER_PRODUCT" Association="Self.FK_ORDER_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="ORDER" EntitySet="ORDER" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -58,6 +95,7 @@
           <Property Name="PSTATUS" Type="Int32" />
           <Property Name="CATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CATEGORY" Relationship="managementdbModel.FK__PRODUCT__CATE__398D8EEE" FromRole="PRODUCT" ToRole="CATEGORY" />
+          <NavigationProperty Name="ORDERs" Relationship="managementdbModel.FK_ORDER_PRODUCT" FromRole="PRODUCT" ToRole="ORDER" />
         </EntityType>
         <EntityContainer Name="managementdbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
@@ -65,6 +103,12 @@
           <AssociationSet Name="FK__PRODUCT__CATE__398D8EEE" Association="managementdbModel.FK__PRODUCT__CATE__398D8EEE">
             <End Role="CATEGORY" EntitySet="CATEGORies" />
             <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+          <EntitySet Name="COUPONs" EntityType="managementdbModel.COUPON" />
+          <EntitySet Name="ORDERs" EntityType="managementdbModel.ORDER" />
+          <AssociationSet Name="FK_ORDER_PRODUCT" Association="managementdbModel.FK_ORDER_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="ORDER" EntitySet="ORDERs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CATEGORY">
@@ -84,6 +128,38 @@
             </Principal>
             <Dependent Role="PRODUCT">
               <PropertyRef Name="CATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="COUPON">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="VALUE" Type="Int32" />
+          <Property Name="AVAILABLE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="BARCODE" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="QTY" Type="Int32" />
+          <Property Name="DATE" Type="DateTime" Precision="0" />
+          <Property Name="TOTAL" Type="Int32" />
+          <NavigationProperty Name="PRODUCT" Relationship="managementdbModel.FK_ORDER_PRODUCT" FromRole="ORDER" ToRole="PRODUCT" />
+        </EntityType>
+        <Association Name="FK_ORDER_PRODUCT">
+          <End Type="managementdbModel.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+          <End Type="managementdbModel.ORDER" Role="ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="BARCODE" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="BARCODE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -110,6 +186,26 @@
               <MappingFragment StoreEntitySet="CATEGORY">
                 <ScalarProperty Name="CSTATUS" ColumnName="CSTATUS" />
                 <ScalarProperty Name="CNAME" ColumnName="CNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COUPONs">
+            <EntityTypeMapping TypeName="managementdbModel.COUPON">
+              <MappingFragment StoreEntitySet="COUPON">
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERs">
+            <EntityTypeMapping TypeName="managementdbModel.ORDER">
+              <MappingFragment StoreEntitySet="ORDER">
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
