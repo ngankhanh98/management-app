@@ -20,6 +20,7 @@ namespace management_app
     public partial class Stats : Window
     {
         private managementdbEntities db;
+        bool selectReport = false;
 
         public Stats()
         {
@@ -63,7 +64,7 @@ namespace management_app
 
         private void BtnReport_Click(object sender, RoutedEventArgs e)
         {
-            
+            lblChartError.Visibility = Visibility.Hidden;
             List<PRODUCT> SaleItems = new List<PRODUCT>();
             List<ORDER> SaleQty = new List<ORDER>();
 
@@ -92,6 +93,7 @@ namespace management_app
                     {
                         SaleType_Report(productList, orderList);
                     }
+                    selectReport = true;
                 }
 
                 if (dpMonthYear.SelectedDate != null)
@@ -109,6 +111,7 @@ namespace management_app
                     {
                         SaleType_Report(productList, orderList);
                     }
+                    selectReport = true;
                 }
 
                 if (dpBeginDate.SelectedDate != null && dpEndDate.SelectedDate != null)
@@ -125,6 +128,8 @@ namespace management_app
                     {
                         SaleType_Report(productList, orderList);
                     }
+                    selectReport = true;
+
                 }
 
                 if (txtYear.Text != "")
@@ -141,13 +146,10 @@ namespace management_app
                     {
                         SaleType_Report(productList, orderList);
                     }
+                    selectReport = true;
                 }
-
-                
-                
+                          
             }
-
-            
         }
 
         private void dateChange(object sender, SelectionChangedEventArgs e)
@@ -274,5 +276,19 @@ namespace management_app
             lvSaleTotal.Visibility = Visibility.Visible;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!selectReport)
+            {
+                lblChartError.Content = "Please select values to generate chart(s)";
+                lblChartError.Visibility = Visibility.Visible;
+                return;
+            }
+            
+
+            Chart chart = new Chart();
+            chart.ShowDialog();
+
+        }
     }
 }
