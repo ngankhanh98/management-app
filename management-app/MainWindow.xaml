@@ -11,7 +11,7 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="MainWindow" Height="450" Width="800" Loaded="Page_Loaded">
+        Title="Management App" Height="450" Width="800" Loaded="Page_Loaded">
     <DockPanel LastChildFill="True">
         <Fluent:Ribbon DockPanel.Dock="Top" Name="ribbon">
             <!--Backstage-->
@@ -40,16 +40,25 @@
                     <Fluent:Button Header="Add"
                                 LargeIcon="Images/Add.png" Click="Button_Click_AddPro"/>
                     <Fluent:Button Header="Delete" 
-                                LargeIcon="Images/Delete.png"/>
-                    <Fluent:Button Header="Save" 
-                                LargeIcon="Images/Save.png"/>
-                    <Fluent:Button Header="Edit" 
+                                LargeIcon="Images/Delete.png" Click="Button_Click_DelPro"/>
+                    <Fluent:Button Header="Detail" 
                                 LargeIcon="Images/New.png" Click="Button_Click_UpdPro"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+
+            <Fluent:RibbonTabItem Header="Order" Name="Order">
+                <Fluent:RibbonGroupBox>
+                    <Fluent:Button Header="Add"
+                                LargeIcon="Images/Add.png" Click="Button_Click_AddOrder"/>
+                    <Fluent:Button Header="Statistics" 
+                                LargeIcon="Images/Statistics.png" Click="Button_Click_Stat"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
-        <ListView ItemsSource="{Binding CNAME}" Name="lvCategory" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedItem" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=RCategory}">
+       
+        <ListView DockPanel.Dock="Top" ItemsSource="{Binding CNAME}" Name="lvCategory" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedItem" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=RCategory}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="CATEGORY" DisplayMemberBinding="{Binding CNAME}" />
@@ -57,11 +66,22 @@
             </ListView.View>
         </ListView>
 
-        <ListView ItemsSource="{Binding BARCODE}" Name="lvProduct" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedItemProduct" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=RProduct}">
+        <ListView DockPanel.Dock="Top" ItemsSource="{Binding BARCODE}" Name="lvProduct" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedItemProduct"  Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=RProduct}">
             <ListView.View>
-                <GridView>
+                <GridView Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True">
                     <GridViewColumn Header="BARCODE" DisplayMemberBinding="{Binding BARCODE}" />
                     <GridViewColumn Header="PRODUCT" DisplayMemberBinding="{Binding PNAME}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView DockPanel.Dock="Top" ItemsSource="{Binding ORDER_ID}" Name="lvOrder" Background="{x:Null}" BorderBrush="{x:Null}" MouseDoubleClick="getSelectedOrder" Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=Order}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ORDER ID" DisplayMemberBinding="{Binding ORDER_ID}" />
+                    <GridViewColumn Header="DATE" DisplayMemberBinding="{Binding DATE}" />
+                    <GridViewColumn Header="BARCODE" DisplayMemberBinding="{Binding BARCODE}" />
+                    <GridViewColumn Header="QUANTITY" DisplayMemberBinding="{Binding QTY}" />
                 </GridView>
             </ListView.View>
         </ListView>

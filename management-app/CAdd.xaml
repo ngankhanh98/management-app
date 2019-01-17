@@ -14,6 +14,7 @@
     <Grid>
         <Button Name="btnNewCategory" Content="OK" HorizontalAlignment="Center" Margin="0,138,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" Click="BtnNewCategory_Click"/>
         <TextBox Name="txtNewCate" HorizontalAlignment="Center" Height="23" Margin="0,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" AcceptsReturn="True"/>
+        <Label x:Name="lblNewCateError" Content="" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,99,0,0" Width="208" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Red"/>
 
     </Grid>
 </Window>
