@@ -117,10 +117,14 @@ namespace management_app
                 {
                     typetime = (int)typeOfTime.MONTH;
                     dateTime = (DateTime)dpMonthYear.SelectedDate;
-                    begin = new DateTime(dateTime.Year, dateTime.Month, 1, 0, 0, 0, 0);
-                    end = new DateTime(dateTime.Year, dateTime.Month + 1, 1, 0, 0, 0, 0);
-                    orderList = db.ORDERs.Where(x => x.DATE >= begin && x.DATE < end).ToList();
+                    //begin = new DateTime(dateTime.Year, dateTime.Month, 1, 0, 0, 0, 0);
+                    //end = new DateTime(dateTime.Year, dateTime.Month + 1, 1, 0, 0, 0, 0);
+                    var query = from order in orderList
+                                where (int)((DateTime)order.DATE).Month == dateTime.Month
+                                select order;
+                    //orderList = db.ORDERs.Where(x => x.DATE >= begin && x.DATE < end).ToList();
 
+                    orderList = query.ToList();
                     if (option == "Products")
                     {
                         ProductType_Report(productList, orderList);
@@ -130,6 +134,7 @@ namespace management_app
                         SaleType_Report(productList, orderList);
                     }
                     selectReport = true;
+
                 }
 
                 if (dpBeginDate.SelectedDate != null && dpEndDate.SelectedDate != null)
@@ -323,9 +328,18 @@ namespace management_app
                 lblChartError.Visibility = Visibility.Visible;
                 return;
             }
-
-            Chart chart = new Chart(resultQry, salesInPeriod, typedt, typetime);
-            chart.ShowDialog();
+            int value = (from item in resultQry.ToList()
+                         select item).Count();
+            if (value!=0)
+            {
+                Chart chart = new Chart(resultQry, salesInPeriod, typedt, typetime);
+                chart.ShowDialog();
+            }
+            else
+            {
+                lblChartError.Content = "No values to draw charts";
+                lblChartError.Visibility = Visibility.Visible;
+            }
         }
     }
 }

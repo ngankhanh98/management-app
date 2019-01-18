@@ -27,17 +27,31 @@ namespace management_app
         {
             InitializeComponent();
             db = new managementdbEntities();
-            cbCatagory.ItemsSource = db.CATEGORies.Where(x => x.CSTATUS == 1).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.CATEGORies.ToList();
+            var filteredCate = db.CATEGORies.Local
+                             .Where(x => x.CSTATUS == 1);
+            cbCatagory.ItemsSource = filteredCate.ToList();
         }
 
         public void BtnNewPro_Click(object sender, RoutedEventArgs e)
         {
 
             if (!(txtBarcode.Text != "" && txtPName.Text != "" && txtPrice.Text != "" && txtQty.Text != ""))
+            {
                 lblNewProError.Content = "Please fill in all the required fields.";
+
+
+            }
+
             else
             {
-                if (this.DatabaseChanged != null)
+                bool existedBarcode = db.PRODUCTs.Where(x => x.BARCODE == txtBarcode.Text && x.PSTATUS == 1).Any();
+                if (existedBarcode == true)
+                {
+                    lblNewProError.Content = "Barcode of this product existed!";
+                }
+                else if (this.DatabaseChanged != null)
                 {
                     lblNewProError.Content = "";
                     CATEGORY cate = (CATEGORY)cbCatagory.SelectedItem;
