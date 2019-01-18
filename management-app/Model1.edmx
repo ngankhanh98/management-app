@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="managementdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CATEGORY">
           <Key>
             <PropertyRef Name="CNAME" />
@@ -42,7 +42,7 @@
           <Property Name="PSTATUS" Type="int" />
           <Property Name="CATE" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__PRODUCT__CATE__398D8EEE">
+        <Association Name="FK__PRODUCT__CATE__2A4B4B5E">
           <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -66,12 +66,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="managementdbModelStoreContainer">
+        <EntityContainer Name="Database1ModelStoreContainer">
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COUPON" EntityType="Self.COUPON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDER" EntityType="Self.ORDER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__PRODUCT__CATE__398D8EEE" Association="Self.FK__PRODUCT__CATE__398D8EEE">
+          <AssociationSet Name="FK__PRODUCT__CATE__2A4B4B5E" Association="Self.FK__PRODUCT__CATE__2A4B4B5E">
             <End Role="CATEGORY" EntitySet="CATEGORY" />
             <End Role="PRODUCT" EntitySet="PRODUCT" />
           </AssociationSet>
@@ -80,10 +80,39 @@
             <End Role="ORDER" EntitySet="ORDER" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="managementdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CNAME" />
+          </Key>
+          <Property Name="CNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CSTATUS" Type="Int32" />
+          <NavigationProperty Name="PRODUCTs" Relationship="Self.FK__PRODUCT__CATE__2A4B4B5E" FromRole="CATEGORY" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="COUPON">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VALUE" Type="Int32" />
+          <Property Name="AVAILABLE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BARCODE" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QTY" Type="Int32" />
+          <Property Name="DATE" Type="DateTime" Precision="0" />
+          <Property Name="TOTAL" Type="Int32" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK_ORDER_PRODUCT" FromRole="ORDER" ToRole="PRODUCT" />
+        </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
             <PropertyRef Name="BARCODE" />
@@ -94,34 +123,12 @@
           <Property Name="QTY" Type="Int32" />
           <Property Name="PSTATUS" Type="Int32" />
           <Property Name="CATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CATEGORY" Relationship="managementdbModel.FK__PRODUCT__CATE__398D8EEE" FromRole="PRODUCT" ToRole="CATEGORY" />
-          <NavigationProperty Name="ORDERs" Relationship="managementdbModel.FK_ORDER_PRODUCT" FromRole="PRODUCT" ToRole="ORDER" />
+          <NavigationProperty Name="CATEGORY" Relationship="Self.FK__PRODUCT__CATE__2A4B4B5E" FromRole="PRODUCT" ToRole="CATEGORY" />
+          <NavigationProperty Name="ORDERs" Relationship="Self.FK_ORDER_PRODUCT" FromRole="PRODUCT" ToRole="ORDER" />
         </EntityType>
-        <EntityContainer Name="managementdbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
-          <EntitySet Name="CATEGORies" EntityType="managementdbModel.CATEGORY" />
-          <AssociationSet Name="FK__PRODUCT__CATE__398D8EEE" Association="managementdbModel.FK__PRODUCT__CATE__398D8EEE">
-            <End Role="CATEGORY" EntitySet="CATEGORies" />
-            <End Role="PRODUCT" EntitySet="PRODUCTs" />
-          </AssociationSet>
-          <EntitySet Name="COUPONs" EntityType="managementdbModel.COUPON" />
-          <EntitySet Name="ORDERs" EntityType="managementdbModel.ORDER" />
-          <AssociationSet Name="FK_ORDER_PRODUCT" Association="managementdbModel.FK_ORDER_PRODUCT">
-            <End Role="PRODUCT" EntitySet="PRODUCTs" />
-            <End Role="ORDER" EntitySet="ORDERs" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="CATEGORY">
-          <Key>
-            <PropertyRef Name="CNAME" />
-          </Key>
-          <Property Name="CNAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CSTATUS" Type="Int32" />
-          <NavigationProperty Name="PRODUCTs" Relationship="managementdbModel.FK__PRODUCT__CATE__398D8EEE" FromRole="CATEGORY" ToRole="PRODUCT" />
-        </EntityType>
-        <Association Name="FK__PRODUCT__CATE__398D8EEE">
-          <End Type="managementdbModel.CATEGORY" Role="CATEGORY" Multiplicity="0..1" />
-          <End Type="managementdbModel.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+        <Association Name="FK__PRODUCT__CATE__2A4B4B5E">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CATEGORY">
               <PropertyRef Name="CNAME" />
@@ -131,29 +138,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="COUPON">
-          <Key>
-            <PropertyRef Name="CODE" />
-          </Key>
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="VALUE" Type="Int32" />
-          <Property Name="AVAILABLE" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ORDER">
-          <Key>
-            <PropertyRef Name="ORDER_ID" />
-            <PropertyRef Name="BARCODE" />
-          </Key>
-          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
-          <Property Name="BARCODE" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="QTY" Type="Int32" />
-          <Property Name="DATE" Type="DateTime" Precision="0" />
-          <Property Name="TOTAL" Type="Int32" />
-          <NavigationProperty Name="PRODUCT" Relationship="managementdbModel.FK_ORDER_PRODUCT" FromRole="ORDER" ToRole="PRODUCT" />
-        </EntityType>
         <Association Name="FK_ORDER_PRODUCT">
-          <End Type="managementdbModel.PRODUCT" Role="PRODUCT" Multiplicity="1" />
-          <End Type="managementdbModel.ORDER" Role="ORDER" Multiplicity="*" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PRODUCT">
               <PropertyRef Name="BARCODE" />
@@ -163,14 +150,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="managementdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CATEGORies" EntityType="Self.CATEGORY" />
+          <EntitySet Name="COUPONs" EntityType="Self.COUPON" />
+          <EntitySet Name="ORDERs" EntityType="Self.ORDER" />
+          <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
+          <AssociationSet Name="FK__PRODUCT__CATE__2A4B4B5E" Association="Self.FK__PRODUCT__CATE__2A4B4B5E">
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORDER_PRODUCT" Association="Self.FK_ORDER_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="ORDER" EntitySet="ORDERs" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="managementdbModelStoreContainer" CdmEntityContainer="managementdbEntities">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="managementdbEntities">
+          <EntitySetMapping Name="CATEGORies">
+            <EntityTypeMapping TypeName="Database1Model.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORY">
+                <ScalarProperty Name="CNAME" ColumnName="CNAME" />
+                <ScalarProperty Name="CSTATUS" ColumnName="CSTATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COUPONs">
+            <EntityTypeMapping TypeName="Database1Model.COUPON">
+              <MappingFragment StoreEntitySet="COUPON">
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERs">
+            <EntityTypeMapping TypeName="Database1Model.ORDER">
+              <MappingFragment StoreEntitySet="ORDER">
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTs">
-            <EntityTypeMapping TypeName="managementdbModel.PRODUCT">
+            <EntityTypeMapping TypeName="Database1Model.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
                 <ScalarProperty Name="PNAME" ColumnName="PNAME" />
                 <ScalarProperty Name="PRICE" ColumnName="PRICE" />
@@ -178,34 +207,6 @@
                 <ScalarProperty Name="QTY" ColumnName="QTY" />
                 <ScalarProperty Name="PSTATUS" ColumnName="PSTATUS" />
                 <ScalarProperty Name="CATE" ColumnName="CATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CATEGORies">
-            <EntityTypeMapping TypeName="managementdbModel.CATEGORY">
-              <MappingFragment StoreEntitySet="CATEGORY">
-                <ScalarProperty Name="CSTATUS" ColumnName="CSTATUS" />
-                <ScalarProperty Name="CNAME" ColumnName="CNAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="COUPONs">
-            <EntityTypeMapping TypeName="managementdbModel.COUPON">
-              <MappingFragment StoreEntitySet="COUPON">
-                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
-                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDERs">
-            <EntityTypeMapping TypeName="managementdbModel.ORDER">
-              <MappingFragment StoreEntitySet="ORDER">
-                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
-                <ScalarProperty Name="DATE" ColumnName="DATE" />
-                <ScalarProperty Name="QTY" ColumnName="QTY" />
-                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
-                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -25,9 +25,9 @@ namespace management_app
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<CATEGORY> CATEGORies { get; set; }
         public virtual DbSet<COUPON> COUPONs { get; set; }
         public virtual DbSet<ORDER> ORDERs { get; set; }
+        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
     }
 }
