@@ -60,6 +60,9 @@ URL: [Lập trình Windows. Đồ án cuối kỳ Ứng dụng quản lý](https
 
 ## Bên lề:
 Xem thêm TODO list tại [đây](https://github.com/ngankhanh98/management-app/projects/2)
+
 Xem thêm issuses (nếu có) tại [đây](https://github.com/ngankhanh98/management-app/issues)
+
 Xem thêm các tài liệu liên quan (nếu có) tại [đây](https://github.com/ngankhanh98/management-app/wiki)
+
 Vui lòng tải bản release tài đây.
