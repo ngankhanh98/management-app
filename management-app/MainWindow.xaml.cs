@@ -262,7 +262,7 @@ namespace management_app
 
             PRODUCT delPro = db.PRODUCTs.Where(x => x.BARCODE == selectedPro.BARCODE).Select(x => x).SingleOrDefault();
 
-            string message = "Do you surely want to delete this category? ";
+            string message = "Do you surely want to delete this product? ";
             string caption = "Delete Product";
             var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo);
 

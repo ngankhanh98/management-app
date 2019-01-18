@@ -26,7 +26,7 @@
             <Button Content="CHART" HorizontalAlignment="Right" VerticalAlignment="Top" Width="102" Margin="0,54,131,0" Height="39" Click="Button_Click"/>
             <Label Content="-" Height="23" VerticalAlignment="Top" Margin="0,70,842,0" HorizontalAlignment="Right" Width="19"/>
             <Label Name="lblChooseTypeErr" Content="Please choose a report type" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,96,435,0" Width="170" Foreground="Red" Visibility="Hidden" Height="34"/>
-            <Label Name="lblChartError" Height="32" Foreground="Red" VerticalAlignment="Top" RenderTransformOrigin="7.55,2.923" Margin="704,98,28,0" Visibility="Visible"/>
+            <Label Name="lblChartError" Height="32" Foreground="Red" VerticalAlignment="Top" RenderTransformOrigin="7.55,2.923" Margin="704,98,28,0" Visibility="Visible" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Height="62">
             <Label Name="lblSum" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Margin="471,18,199,0" RenderTransformOrigin="0.836,0.667" Visibility="Hidden"/>
