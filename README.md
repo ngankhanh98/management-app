@@ -59,10 +59,15 @@ Application hỗ trợ các chức năng cơ bản về CRUD dữ liệu, thốn
 URL: [Lập trình Windows. Đồ án cuối kỳ Ứng dụng quản lý](https://www.youtube.com/watch?v=k_ITufuh_xA)
 
 ## Bên lề:
-Xem thêm TODO list tại [đây](https://github.com/ngankhanh98/management-app/projects/2)
+Xem thêm TODO list tại [đây](https://github.com/ngankhanh98/management-app/projects/2)<br>
+Xem thêm issuses (nếu có) tại [đây](https://github.com/ngankhanh98/management-app/issues)<br>
+Xem thêm các tài liệu liên quan (nếu có) tại [đây](https://github.com/ngankhanh98/management-app/wiki)<br>
+Vui lòng tải bản release tại [đây](https://github.com/ngankhanh98/management-app/releases)<br>
 
-Xem thêm issuses (nếu có) tại [đây](https://github.com/ngankhanh98/management-app/issues)
+## Tham khảo & biết ơn
+Fellow guys Hồng Khang, [Nguyên Khang](http://github.com/nkhang), [Bearnies](https://github.com/Bearnies)
 
-Xem thêm các tài liệu liên quan (nếu có) tại [đây](https://github.com/ngankhanh98/management-app/wiki)
-
-Vui lòng tải bản release tài đây.
+_**Packages:**_<br>
+Material Design In Xaml Toolkit: [https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)<br>
+Live Charts: [https://github.com/Live-Charts/Live-Charts](https://github.com/Live-Charts/Live-Charts)<br>
+Fluent Ribbon: [https://github.com/fluentribbon/Fluent.Ribbon](https://github.com/fluentribbon/Fluent.Ribbon)
