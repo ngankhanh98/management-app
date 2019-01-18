@@ -19,12 +19,14 @@ namespace management_app
     /// </summary>
     public partial class CAdd : Window
     {
+        managementdbEntities db;
         public event DatabaseChangeHandler DatabaseChanged;
         public delegate void DatabaseChangeHandler(string newDatabaseName);
 
         public CAdd()
         {
             InitializeComponent();
+            db = new managementdbEntities();
         }
 
         public void BtnNewCategory_Click(object sender, RoutedEventArgs e)
@@ -32,7 +34,12 @@ namespace management_app
             if (txtNewCate.Text == "")
                 lblNewCateError.Content = "Please enter a category";
 
-            if (this.DatabaseChanged != null && txtNewCate.Text!="")
+            bool categoryExisted = db.CATEGORies.Where(x => x.CNAME == txtNewCate.Text && x.CSTATUS==1).Any();
+
+            if (categoryExisted == true)
+                lblNewCateError.Content = "This category already existed";
+
+            if (this.DatabaseChanged != null && txtNewCate.Text!="" && categoryExisted==false)
             {
                 lblNewCateError.Content = "";
                 this.DatabaseChanged(txtNewCate.Text);

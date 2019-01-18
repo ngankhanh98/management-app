@@ -38,10 +38,20 @@ namespace management_app
         {
 
             if (!(txtBarcode.Text != "" && txtPName.Text != "" && txtPrice.Text != "" && txtQty.Text != ""))
+            {
                 lblNewProError.Content = "Please fill in all the required fields.";
+
+
+            }
+
             else
             {
-                if (this.DatabaseChanged != null)
+                bool existedBarcode = db.PRODUCTs.Where(x => x.BARCODE == txtBarcode.Text && x.PSTATUS == 1).Any();
+                if (existedBarcode == true)
+                {
+                    lblNewProError.Content = "Barcode of this product existed!";
+                }
+                else if (this.DatabaseChanged != null)
                 {
                     lblNewProError.Content = "";
                     CATEGORY cate = (CATEGORY)cbCatagory.SelectedItem;

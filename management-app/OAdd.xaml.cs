@@ -39,7 +39,7 @@ namespace management_app
             db = new managementdbEntities();
             string coupon = txtCoupon.Text;
 
-            validCoupon = db.COUPONs.Where(x => x.CODE == coupon).Select(x=>x).SingleOrDefault();
+            validCoupon = db.COUPONs.Where(x => x.CODE == coupon && x.AVAILABLE>0).Select(x=>x).SingleOrDefault();
 
             if(validCoupon==null)
             {

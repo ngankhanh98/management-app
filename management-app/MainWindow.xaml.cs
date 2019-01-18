@@ -188,8 +188,12 @@ namespace management_app
                 newProduct.PSTATUS = 1;
                 db.PRODUCTs.Add(newProduct);
             }
-            else
+            else if(newProduct.PSTATUS==0)
             {
+                newProduct.PNAME = tokens[1];
+                newProduct.PRICE = int.Parse(tokens[2]);
+                newProduct.QTY = int.Parse(tokens[3]);
+                newProduct.CATE = tokens[4];
                 newProduct.PSTATUS = 1;
             }
             db.SaveChanges();

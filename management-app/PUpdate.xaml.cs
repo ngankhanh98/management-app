@@ -40,7 +40,6 @@ namespace management_app
 
         public void BtnUpdPro_Click(object sender, RoutedEventArgs e)
         {
-
             if (this.DatabaseChanged != null)
             {
                 CATEGORY cate = (CATEGORY)cbCatagory.SelectedItem;

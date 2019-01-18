@@ -134,6 +134,7 @@ namespace management_app
                         SaleType_Report(productList, orderList);
                     }
                     selectReport = true;
+
                 }
 
                 if (dpBeginDate.SelectedDate != null && dpEndDate.SelectedDate != null)
